@@ -1,5 +1,6 @@
 import express from "express";
 import { json } from "body-parser";
+import "express-async-errors";
 
 import { currentUserRouter } from "./routes/current-user";
 import { signinRouter } from "./routes/singin";
@@ -25,7 +26,7 @@ app.use(errorHandler);
 
 const start = async () => {
   try {
-    await mongoose.connect("mongo://auth-mongo-srv:27017/auth");
+    await mongoose.connect("mongodb://auth-mongo-srv:27017/auth");
   } catch (err) {
     console.log(err);
   }
