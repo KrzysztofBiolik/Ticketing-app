@@ -9,20 +9,26 @@ spec:
       app: auth
   template:
     metadata:
-      labels:
-        app: auth
+      labels: # deployment nadaje podom etykietę
+        app: auth # app: auth przez co są widziane przez service
     spec:
       containers:
         - name: auth
           image: us.gcr.io/ticketing-dev-453721/auth
+          env:
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: auth-srv
 spec:
-  selector:
-    app: auth
+  selector: # szuka podów
+    app: auth # z app: auth
   ports:
     - name: auth
       protocol: TCP
