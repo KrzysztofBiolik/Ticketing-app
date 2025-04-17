@@ -4,7 +4,7 @@ deploy:
   kubectl:
     manifests:
       - ./infra/k8s/*
-build: 
+build:
   # local:
   #   push: false
   googleCloudBuild:
@@ -16,5 +16,13 @@ build:
         dockerfile: Dockerfile
       sync:
         manual:
-          - src: 'src/**/*.ts'
-            dest : .
+          - src: "src/**/*.ts"
+            dest: .
+    - image: us.gcr.io/ticketing-dev-453721/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "**/*/js"
+            dest: .
